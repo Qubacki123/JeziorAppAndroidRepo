@@ -1,13 +1,22 @@
 package com.example.drawer_gnss2;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import com.example.drawer_gnss2.ui.home.HomeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,16 +40,26 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.view.Menu;
 
+import static com.example.drawer_gnss2.ui.home.HomeFragment.mMap;
+import static com.example.drawer_gnss2.ui.home.HomeFragment.map;
+
 
 public class MainActivity extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
+    private LocationManager lm;
+    private LocationListener listener;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        listener = new MyListener();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -66,18 +85,84 @@ public class MainActivity extends AppCompatActivity{
 
         Log.e("MainActivity", "On Create");
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-               .findFragmentById(R.id.map);
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)   != PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+            return;
+        }
+        registerListener();
 
-        //mapFragment.getMapAsync(this);
+
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults)
+    {
+        registerListener();
+    }
+    void registerListener()
+    {
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
+    }
+    private class MyListener implements LocationListener
+    {
+        @Override
+        public void onLocationChanged(Location location)
+        {
+
+        }
+
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras)
+        {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider)
+        {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider)
+        {
+
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Change the map type based on the user's selection.
+        switch (item.getItemId()) {
+            case R.id.action_normal_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                return true;
+            case R.id.action_hybrid_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                return true;
+            case R.id.action_satellite_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                return true;
+            case R.id.action_terrain_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

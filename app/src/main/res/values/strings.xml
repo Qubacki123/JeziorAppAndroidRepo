@@ -13,4 +13,12 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="action_normal_map">Klasyczna mapa</string>
+    <string name="action_hybrid_map">Hybrydowa mapa</string>
+    <string name="action_satellite_map">Satelitarna mapa</string>
+    <string name="action_terrain_map">Terenowa mapa</string>
+
+    <string name="lat_long_snippet">Szer: %1$.5f, Dług: %2$.5f</string>
+    <string name="dropped_pin">Twój znacznik</string>
+    <string name="poi">poi</string>
 </resources>
