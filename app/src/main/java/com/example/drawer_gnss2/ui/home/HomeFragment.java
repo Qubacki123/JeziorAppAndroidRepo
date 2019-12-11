@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
         return root;
     }
+    
 
     /**
      * Manipulates the map once available.
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .image(BitmapDescriptorFactory.fromResource(R.drawable.android))
                 .position(jeziorak, 1000);
 
-        mMap.addGroundOverlay(homeOverlay);
+        //mMap.addGroundOverlay(homeOverlay);
 
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
