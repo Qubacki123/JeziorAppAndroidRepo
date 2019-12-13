@@ -1,14 +1,20 @@
 package com.example.drawer_gnss2.ui.home;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -18,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.drawer_gnss2.MainActivity;
 import com.example.drawer_gnss2.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,7 +46,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
     public static GoogleMap mMap;
     public static GoogleMap map;
-
+    public Marker mPodOmega;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +73,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
         return root;
     }
-    
+
 
     /**
      * Manipulates the map once available.
@@ -106,11 +113,71 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         setPoiClick(mMap); // Set a click listener for points of interest.
 
         //marker podomega
-        //mMap.addMarker(new MarkerOptions().position().title("Pod Omegą"));
+        ObiektyPOI PodOmega = new ObiektyPOI(true,false,false,true,true,true,true,true,53.600198, 19.547083);
+        LatLng PodOmegaLatLng = new LatLng(PodOmega.latitude,PodOmega.longitude);
+        mPodOmega = mMap.addMarker(new MarkerOptions()
+                    .position(PodOmegaLatLng)
+                    .title("Pod Omegą")
+                    .snippet(getSnippet(PodOmega))
+                    .icon(BitmapDescriptorFactory.defaultMarker
+                            (BitmapDescriptorFactory.HUE_AZURE)));
+        mPodOmega.setTag(0);
 
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Context mContext = getContext(); //or getActivity(), YourActivity.this, etc.
+                Toast.makeText(mContext, "Wybrano przystań " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                Context mContext = getContext(); //or getActivity(), YourActivity.this, etc.
+
+                LinearLayout info = new LinearLayout(mContext);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(mContext);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(mContext);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
     }
+
+    public String getSnippet (ObiektyPOI poi) {
+        String snippet = "";
+        snippet = snippet + "Cumowanie: ";
+        if (poi.cumowanie_kotwica == true) {
+            snippet = snippet + "kotwica\n";}
+        if (poi.cumowanie_bojka == true) {
+            snippet = snippet + "bojka\n";}
+        if (poi.cumowanie_ybom == true) {
+            snippet = snippet + "y-bom\n";}
+
+        return snippet;
+    }
+
 
     /**
      * Adds a blue marker to the map when the user long clicks on it.
@@ -162,24 +229,19 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     public class ObiektyPOI {
         boolean cumowanie_bojka,cumowanie_ybom,cumowanie_kotwica;
         boolean prysznic,paliwo,sklep,toaleta,woda_pitna;
-        double lat,lng;
+        double latitude,longitude;
 
-
-        public void main(String[] args) {
-            ObiektyPOI PodOmega = new ObiektyPOI();
-            PodOmega.cumowanie_bojka = true;
-            PodOmega.prysznic = true;
-            PodOmega.paliwo = true;
-            PodOmega.sklep = true;
-            PodOmega.toaleta = true;
-            PodOmega.woda_pitna = true;
-            PodOmega.lat = 53.6006;
-            PodOmega.lng = 19.5449;
-            LatLng PodOmegalatlng = new LatLng(PodOmega.lat, PodOmega.lng);
-
-
-
-
+        public ObiektyPOI(boolean cum_b,boolean cum_y,boolean cum_k,boolean prysz,boolean pal,boolean skl,boolean toa,boolean wod,double lat,double lng) {
+            cumowanie_bojka = cum_b;
+            cumowanie_ybom = cum_y;
+            cumowanie_kotwica = cum_k;
+            prysznic = prysz;
+            paliwo = pal;
+            sklep = skl;
+            toaleta = toa;
+            woda_pitna = wod;
+            latitude = lat;
+            longitude = lng;
         }
     }
 
