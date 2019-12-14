@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity{
     private LocationManager lm;
     private LocationListener listener;
 
+    public static Location lokalizacja_uzytkownika;
+
 
 
     @Override
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity{
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +78,7 @@ public class MainActivity extends AppCompatActivity{
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void onLocationChanged(Location location)
         {
-
+            przetwarzajLokalizacje(location);
         }
 
 
@@ -130,6 +132,13 @@ public class MainActivity extends AppCompatActivity{
         {
 
         }
+    }
+
+    Location prevLocation = null;
+    private void przetwarzajLokalizacje(Location location)
+    {
+        lokalizacja_uzytkownika = location;
+        prevLocation = location;
     }
 
 

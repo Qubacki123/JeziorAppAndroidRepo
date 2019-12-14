@@ -44,6 +44,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.drawer_gnss2.MainActivity.lokalizacja_uzytkownika;
+
 public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     private HomeViewModel homeViewModel;
 
@@ -255,7 +257,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         LatLng ZatokaMakowo1LatLng = new LatLng(ZatokaMakowo1.latitude,ZatokaMakowo1.longitude);
         mZatokaMakowo1 = mMap.addMarker(new MarkerOptions()
                 .position(ZatokaMakowo1LatLng)
-                .title("Zatoka Makowo#1")
+                .title("Zatoka Makowo #1")
                 .snippet(getSnippet(ZatokaMakowo1))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
@@ -265,7 +267,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         LatLng ZatokaMakowo2LatLng = new LatLng(ZatokaMakowo2.latitude,ZatokaMakowo2.longitude);
         mZatokaMakowo2 = mMap.addMarker(new MarkerOptions()
                 .position(ZatokaMakowo2LatLng)
-                .title("Zatoka Makowo#2")
+                .title("Zatoka Makowo #2")
                 .snippet(getSnippet(ZatokaMakowo2))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
@@ -488,17 +490,6 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
         return snippet;
     }
-
-
-    /**
-     * Pozyskanie emoji
-     *
-     * @param unicode emoji podane w int
-     */
-    public String getEmojiByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
-
 
     /**
      * Adds a blue marker to the map when the user long clicks on it.

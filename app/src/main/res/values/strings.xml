@@ -21,4 +21,6 @@
     <string name="lat_long_snippet">Szer: %1$.5f, Dług: %2$.5f</string>
     <string name="dropped_pin">Twój znacznik</string>
     <string name="poi">poi</string>
+    <string name="jeziorak">Jeziorak</string>
+    <string name="wikiurl">https://pl.wikipedia.org/wiki/Jeziorak</string>
 </resources>
