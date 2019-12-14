@@ -57,8 +57,22 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     public Marker mMaribo;
     public Marker mPomostKrzywyRog;
     public Marker mZatWyspMil;
+    public Marker mPrzystIndPol;
+    public Marker mSarnowek;
+    public Marker mMakowo;
+    public Marker mZatokaMakowo1;
+    public Marker mZatokaMakowo2;
+    public Marker mDodziaCamp;
+    public Marker mZatokaPiratow;
+    public Marker mObelisk;
+    public Marker mGierczakMaly;
+    public Marker mGierczakDuzy;
+    public Marker mBindugaGierczak1;
 
     public Marker mMielTor;
+    public Marker mMielJazdz;
+    public Marker mMielMalyGierczak;
+    public Marker mMielDuzyGierczak;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -194,6 +208,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
 
+
         //marker Zatoka Przy Wyspie Miłości
         ObiektyPOI ZatWyspMil = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.628367, 19.554406);
         LatLng ZatWyspMilLatLng = new LatLng(ZatWyspMil.latitude,ZatWyspMil.longitude);
@@ -203,6 +218,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(ZatWyspMil))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+
 
         //marker Przystań Indyjski Półwysep
         ObiektyPOI PrzystIndPol = new ObiektyPOI(false,true,false,false,false,false,false,true,false,false,true,true,false,53.650759, 19.581258);
@@ -214,6 +230,107 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
 
+        //marker Sarnówek
+        ObiektyPOI Sarnowek = new ObiektyPOI(false,true,false,true,false,false,true,false,false,true,false,true,false,53.658618, 19.589955);
+        LatLng SarnowekLatLng = new LatLng(Sarnowek.latitude,Sarnowek.longitude);
+        mSarnowek = mMap.addMarker(new MarkerOptions()
+                .position(SarnowekLatLng)
+                .title("Sarnówek")
+                .snippet(getSnippet(Sarnowek))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+
+        //marker Makowo
+        ObiektyPOI Makowo = new ObiektyPOI(false,false,true,true,false,true,true,false,false,true,false,true,false,53.682125, 19.644059);
+        LatLng MakowoLatLng = new LatLng(Makowo.latitude,Makowo.longitude);
+        mMakowo = mMap.addMarker(new MarkerOptions()
+                .position(MakowoLatLng)
+                .title("Makowo")
+                .snippet(getSnippet(Makowo))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+
+        //marker Zatoka Makowo#1
+        ObiektyPOI ZatokaMakowo1 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.678385, 19.633059);
+        LatLng ZatokaMakowo1LatLng = new LatLng(ZatokaMakowo1.latitude,ZatokaMakowo1.longitude);
+        mZatokaMakowo1 = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaMakowo1LatLng)
+                .title("Zatoka Makowo#1")
+                .snippet(getSnippet(ZatokaMakowo1))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Zatoka Makowo#2
+        ObiektyPOI ZatokaMakowo2 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.681885, 19.634695);
+        LatLng ZatokaMakowo2LatLng = new LatLng(ZatokaMakowo2.latitude,ZatokaMakowo2.longitude);
+        mZatokaMakowo2 = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaMakowo2LatLng)
+                .title("Zatoka Makowo#2")
+                .snippet(getSnippet(ZatokaMakowo2))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Dodzia Camp
+        ObiektyPOI DodziaCamp = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.698063, 19.643175);
+        LatLng DodziaCampLatLng = new LatLng(DodziaCamp.latitude,DodziaCamp.longitude);
+        mDodziaCamp = mMap.addMarker(new MarkerOptions()
+                .position(DodziaCampLatLng)
+                .title("Dodzia Camp")
+                .snippet(getSnippet(DodziaCamp))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Zatoka Piratów
+        ObiektyPOI ZatokaPiratow = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.702170, 19.627328);
+        LatLng ZatokaPiratowLatLng = new LatLng(ZatokaPiratow.latitude,ZatokaPiratow.longitude);
+        mZatokaPiratow = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaPiratowLatLng)
+                .title("Zatoka Piratów")
+                .snippet(getSnippet(ZatokaPiratow))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Obelisk
+        ObiektyPOI Obelisk = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.701782, 19.623862);
+        LatLng ObeliskLatLng = new LatLng(Obelisk.latitude,Obelisk.longitude);
+        mObelisk = mMap.addMarker(new MarkerOptions()
+                .position(ObeliskLatLng)
+                .title("Obelisk")
+                .snippet(getSnippet(Obelisk))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Gierczak Mały
+        ObiektyPOI GierczakMaly = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.701782, 19.623862);
+        LatLng GierczakMalyLatLng = new LatLng(GierczakMaly.latitude,GierczakMaly.longitude);
+        mGierczakMaly = mMap.addMarker(new MarkerOptions()
+                .position(GierczakMalyLatLng)
+                .title("Gierczak Mały")
+                .snippet(getSnippet(GierczakMaly))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Gierczak Duży
+        ObiektyPOI GierczakDuzy = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.717282, 19.636532);
+        LatLng GierczakDuzyLatLng = new LatLng(GierczakDuzy.latitude,GierczakDuzy.longitude);
+        mGierczakDuzy = mMap.addMarker(new MarkerOptions()
+                .position(GierczakDuzyLatLng)
+                .title("Gierczak Duży")
+                .snippet(getSnippet(GierczakDuzy))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Binduga Przy Gierczaku
+        ObiektyPOI BindugaGierczak1 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.714304, 19.625954);
+        LatLng BindugaGierczak1LatLng = new LatLng(BindugaGierczak1.latitude,BindugaGierczak1.longitude);
+        mBindugaGierczak1 = mMap.addMarker(new MarkerOptions()
+                .position(BindugaGierczak1LatLng)
+                .title("Binduga Gierczak #1")
+                .snippet(getSnippet(BindugaGierczak1))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+
         /**
          * MIELIZNY
          *
@@ -224,6 +341,27 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         LatLng MielTor = new LatLng(53.618983, 19.548221);
         mMielTor = mMap.addMarker(new MarkerOptions()
                 .position(MielTor)
+                .title("Mielizna")
+                .icon(icon1))  ;
+
+        //mielizna przy torze
+        LatLng MielJazdz = new LatLng(53.673303, 19.618766);
+        mMielJazdz = mMap.addMarker(new MarkerOptions()
+                .position(MielJazdz)
+                .title("Mielizna")
+                .icon(icon1))  ;
+
+        //mielizna przy Gierczaku Małym
+        LatLng MalyGierczak = new LatLng(53.712067, 19.629935);
+        mMielMalyGierczak = mMap.addMarker(new MarkerOptions()
+                .position(MalyGierczak)
+                .title("Mielizna")
+                .icon(icon1))  ;
+
+        //mielizna przy Gierczaku Dużym
+        LatLng DuzyGierczak = new LatLng(53.716900, 19.644295);
+        mMielDuzyGierczak = mMap.addMarker(new MarkerOptions()
+                .position(DuzyGierczak)
                 .title("Mielizna")
                 .icon(icon1))  ;
 
@@ -320,33 +458,31 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
         snippet = snippet + "⚓ Cumowanie: ";
         if (poi.cumowanie_kotwica) {
-            snippet = snippet + "kotwica\n";}
+            snippet = snippet + "kotwica";}
         if (poi.cumowanie_bojka) {
-            snippet = snippet + "bojka\n";}
+            snippet = snippet + "bojka";}
         if (poi.cumowanie_ybom) {
-            snippet = snippet + "y-bom\n";}
+            snippet = snippet + "y-bom";}
         if (poi.prysznic) {
-            snippet = snippet + "\uD83D\uDEBF Prysznic\n";}
+            snippet = snippet + "\n\uD83D\uDEBF Prysznic";}
         if (poi.paliwo) {
-            snippet = snippet + "⛽ Paliwo\n";}
+            snippet = snippet + "\n⛽ Paliwo";}
         if (poi.sklep) {
-            snippet = snippet + "\uD83D\uDED2 Sklep\n";}
+            snippet = snippet + "\n\uD83D\uDED2 Sklep";}
 
         if (poi.kupa_w_krzaku) {
-            snippet = snippet + "\uD83D\uDEBD Kupa w lesie ( ͡° ͜ʖ ͡°)";}
+            snippet = snippet + "\n\uD83D\uDEBD Kupa w lesie ( ͡° ͜ʖ ͡°)";}
         else if(poi.toitoi) {
-            snippet = snippet + "\uD83D\uDEBD ToiToi";}
+            snippet = snippet + "\n\uD83D\uDEBD ToiToi";}
         else if (poi.toaleta){
-            snippet = snippet + "\uD83D\uDEBD Toaleta";}
-
-        snippet = snippet + "\n";
+            snippet = snippet + "\n\uD83D\uDEBD Toaleta";}
 
         if (poi.woda_pitna) {
-            snippet = snippet + "\uD83D\uDEB0 Woda pitna\n";}
+            snippet = snippet + "\n\uD83D\uDEB0 Woda pitna";}
         if (poi.ognisko) {
-            snippet = snippet + "\uD83D\uDD25 Ognisko\n";}
+            snippet = snippet + "\n\uD83D\uDD25 Ognisko";}
         if (poi.smietnik) {
-            snippet = snippet + "\uD83D\uDDD1 Śmietnik";}
+            snippet = snippet + "\n\uD83D\uDDD1 Śmietnik";}
         if (poi.nocleg) {
             snippet = snippet + "\n\uD83D\uDECC Nocleg";}
 
