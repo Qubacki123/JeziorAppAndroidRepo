@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity{
                     LatLng bliskie_poi_latlng = new LatLng(bliskie_poi.getPosition().latitude,bliskie_poi.getPosition().longitude);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bliskie_poi_latlng, 16));
                     Log.e("Bliskie POI", bliskie_poi.getTitle() + " pos: " + bliskie_poi.getPosition().toString());
+                    bliskie_poi.showInfoWindow();
                 }
             }
         });
