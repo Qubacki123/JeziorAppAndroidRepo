@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,6 +76,8 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     public Marker mMielJazdz;
     public Marker mMielMalyGierczak;
     public Marker mMielDuzyGierczak;
+
+    public List<Marker> lista_poi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -140,6 +143,9 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
         setPoiClick(mMap); // Set a click listener for points of interest.
 
+        //lista poi
+        lista_poi = new ArrayList<Marker>();
+
         //marker Pod Omegą
         ObiektyPOI PodOmega = new ObiektyPOI(true,false,false,true,true,true,true,false,false,true,true,true,true,53.600198, 19.547083);
         LatLng PodOmegaLatLng = new LatLng(PodOmega.latitude,PodOmega.longitude);
@@ -149,6 +155,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                     .snippet(getSnippet(PodOmega))
                     .icon(BitmapDescriptorFactory.defaultMarker
                             (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mPodOmega);
 
         //marker Port Iława
         ObiektyPOI PortIlawa = new ObiektyPOI(true,false,false,true,true,true,true,false,false,true,false,true,true,53.599951, 19.553358);
@@ -159,6 +166,8 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(PortIlawa))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mPortIlawa);
+
 
         //marker Ekomarina
         ObiektyPOI Ekomarina = new ObiektyPOI(false,true,false,true,false,true,true,false,false,true,false,true,true,53.604218, 19.558014);
@@ -169,6 +178,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(Ekomarina))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mEkomarina);
 
         //marker Biskaje
         ObiektyPOI Biskaje = new ObiektyPOI(true,false,false,true,false,true,true,false,false,true,false,true,false,53.615033, 19.563197);
@@ -179,6 +189,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(Biskaje))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mBiskaje);
 
         //marker Przystań Skarbek
         ObiektyPOI PrzystanSkarbek = new ObiektyPOI(true,false,false,true,true,true,true,false,false,true,false,true,false,53.616857, 19.563474);
@@ -189,6 +200,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(PrzystanSkarbek))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mPrzystanSkarbek);
 
         //marker Maribo
         ObiektyPOI Maribo = new ObiektyPOI(true,false,false,true,false,false,true,false,false,true,false,true,false,53.643445, 19.573208);
@@ -199,6 +211,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(Maribo))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mMaribo);
 
         //marker Pomost Krzywy Róg
         ObiektyPOI PomostKrzywyRog = new ObiektyPOI(false,true,false,false,false,false,false,true,false,false,true,true,false,53.632064, 19.556638);
@@ -209,6 +222,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(PomostKrzywyRog))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mPomostKrzywyRog);
 
 
         //marker Zatoka Przy Wyspie Miłości
@@ -220,6 +234,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(ZatWyspMil))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatWyspMil);
 
 
         //marker Przystań Indyjski Półwysep
@@ -231,6 +246,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(PrzystIndPol))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mPrzystIndPol);
 
         //marker Sarnówek
         ObiektyPOI Sarnowek = new ObiektyPOI(false,true,false,true,false,false,true,false,false,true,false,true,false,53.658618, 19.589955);
@@ -241,6 +257,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(Sarnowek))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mSarnowek);
 
         //marker Makowo
         ObiektyPOI Makowo = new ObiektyPOI(false,false,true,true,false,true,true,false,false,true,false,true,false,53.682125, 19.644059);
@@ -251,6 +268,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(Makowo))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mMakowo);
 
         //marker Zatoka Makowo#1
         ObiektyPOI ZatokaMakowo1 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.678385, 19.633059);
@@ -261,6 +279,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(ZatokaMakowo1))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaMakowo1);
 
         //marker Zatoka Makowo#2
         ObiektyPOI ZatokaMakowo2 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.681885, 19.634695);
@@ -271,6 +290,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(ZatokaMakowo2))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaMakowo2);
 
         //marker Dodzia Camp
         ObiektyPOI DodziaCamp = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.698063, 19.643175);
@@ -281,6 +301,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(DodziaCamp))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mDodziaCamp);
 
         //marker Zatoka Piratów
         ObiektyPOI ZatokaPiratow = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.702170, 19.627328);
@@ -291,6 +312,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(ZatokaPiratow))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaPiratow);
 
         //marker Obelisk
         ObiektyPOI Obelisk = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.701782, 19.623862);
@@ -301,6 +323,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(Obelisk))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mObelisk);
 
         //marker Gierczak Mały
         ObiektyPOI GierczakMaly = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.701782, 19.623862);
@@ -311,6 +334,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(GierczakMaly))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mGierczakMaly);
 
         //marker Gierczak Duży
         ObiektyPOI GierczakDuzy = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.717282, 19.636532);
@@ -321,6 +345,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(GierczakDuzy))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mGierczakDuzy);
 
         //marker Binduga Przy Gierczaku
         ObiektyPOI BindugaGierczak1 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.714304, 19.625954);
@@ -331,6 +356,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .snippet(getSnippet(BindugaGierczak1))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mBindugaGierczak1);
 
 
         /**
@@ -346,7 +372,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .title("Mielizna")
                 .icon(icon1))  ;
 
-        //mielizna przy torze
+        //mielizna przy Jazdzowkach
         LatLng MielJazdz = new LatLng(53.673303, 19.618766);
         mMielJazdz = mMap.addMarker(new MarkerOptions()
                 .position(MielJazdz)
@@ -440,7 +466,8 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 snippet.setText(marker.getSnippet());
 
                 info.addView(title);
-                info.addView(snippet);
+                if (!marker.getTitle().equals("Mielizna")) {
+                info.addView(snippet); }
 
                 return info;
             }
@@ -489,6 +516,46 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
             snippet = snippet + "\n\uD83D\uDECC Nocleg";}
 
         return snippet;
+    }
+
+    Marker findNearestMarker(Location location){
+        Marker najblizszy = null;
+        Double odleglosc = 0.0;
+        for(int i = 0; i < lista_poi.size(); i++) {
+            //odleglosc = dist(location.getLongitude(),location.getLatitude(),
+            //        lista_poi[i].getPosition().longitude,lista_poi[i].getPosition().latitude);
+        }
+        return najblizszy;
+    }
+
+    /**
+     * degrees to radians
+     *
+     * @param degrees The GoogleMap to attach the listener to.
+     */
+    Double degreesToRadians(Double degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+
+    /**
+     * calculate distance between 2 points
+     *
+     */
+    Double dist(double long1, double lat1, double long2, double lat2) {
+
+        Double earthRadiusKm = 6371.0;
+
+        Double dLat = degreesToRadians(lat2 - lat1);
+        Double dLon = degreesToRadians(long2 - long1);
+
+        lat1 = degreesToRadians(lat1);
+        lat2 = degreesToRadians(lat2);
+
+        Double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return earthRadiusKm * c;
     }
 
     /**
