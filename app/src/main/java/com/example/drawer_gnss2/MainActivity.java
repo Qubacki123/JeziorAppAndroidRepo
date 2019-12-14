@@ -8,6 +8,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.example.drawer_gnss2.ui.home.HomeFragment;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.view.Menu;
 
+import static com.example.drawer_gnss2.ui.home.HomeFragment.lista_poi;
 import static com.example.drawer_gnss2.ui.home.HomeFragment.mMap;
 import static com.example.drawer_gnss2.ui.home.HomeFragment.map;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity{
     private LocationListener listener;
 
     public static Location lokalizacja_uzytkownika;
+
 
 
 
@@ -69,8 +72,18 @@ public class MainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (lokalizacja_uzytkownika == null){
+                Snackbar.make(view, "Czekam na określenie lokalizacji", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();}
+                //znajdz najblizszy
+                else  {
+                    Snackbar.make(view, "Szukam najbliższej przystani...", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    Marker bliskie_poi = findNearestMarker(lokalizacja_uzytkownika);
+                    LatLng bliskie_poi_latlng = new LatLng(bliskie_poi.getPosition().latitude,bliskie_poi.getPosition().longitude);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bliskie_poi_latlng, 16));
+                    Log.e("Bliskie POI", bliskie_poi.getTitle() + " pos: " + bliskie_poi.getPosition().toString());
+                }
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -147,6 +160,57 @@ public class MainActivity extends AppCompatActivity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    static Marker findNearestMarker(Location location){
+        Marker najblizszy = null;
+        Double odleglosc = 0.0;
+        for(int i = 0; i < lista_poi.size(); i++) {
+            if (najblizszy == null) {
+                najblizszy = lista_poi.get(i);
+                odleglosc = dist(location.getLongitude(),location.getLatitude(),
+                        lista_poi.get(i).getPosition().longitude,lista_poi.get(i).getPosition().latitude);
+                continue;
+            }
+            Double tmp = dist(location.getLongitude(),location.getLatitude(),
+                    lista_poi.get(i).getPosition().longitude,lista_poi.get(i).getPosition().latitude);
+            if (tmp < odleglosc) {
+                odleglosc = tmp;
+                najblizszy = lista_poi.get(i);
+                continue;
+            }
+        }
+        return najblizszy;
+    }
+
+    /**
+     * degrees to radians
+     *
+     * @param degrees The GoogleMap to attach the listener to.
+     */
+    static Double degreesToRadians(Double degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+
+    /**
+     * calculate distance between 2 points
+     *
+     */
+    static Double dist(double long1, double lat1, double long2, double lat2) {
+
+        Double earthRadiusKm = 6371.0;
+
+        Double dLat = degreesToRadians(lat2 - lat1);
+        Double dLon = degreesToRadians(long2 - long1);
+
+        lat1 = degreesToRadians(lat1);
+        lat2 = degreesToRadians(lat2);
+
+        Double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return earthRadiusKm * c;
     }
 
 

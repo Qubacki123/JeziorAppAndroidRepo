@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     public Marker mMielMalyGierczak;
     public Marker mMielDuzyGierczak;
 
-    public List<Marker> lista_poi;
+    static public List<Marker> lista_poi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -359,6 +359,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         lista_poi.add(mBindugaGierczak1);
 
 
+
         /**
          * MIELIZNY
          *
@@ -408,7 +409,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                         new LatLng(53.604047, 19.539689),
                         new LatLng(53.61697, 19.54636))
                 .clickable(true)
-                .width(6));
+                .width(3));
         polyline1.setTag("Tor wioślarski");
 
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener()
@@ -518,45 +519,6 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         return snippet;
     }
 
-    Marker findNearestMarker(Location location){
-        Marker najblizszy = null;
-        Double odleglosc = 0.0;
-        for(int i = 0; i < lista_poi.size(); i++) {
-            //odleglosc = dist(location.getLongitude(),location.getLatitude(),
-            //        lista_poi[i].getPosition().longitude,lista_poi[i].getPosition().latitude);
-        }
-        return najblizszy;
-    }
-
-    /**
-     * degrees to radians
-     *
-     * @param degrees The GoogleMap to attach the listener to.
-     */
-    Double degreesToRadians(Double degrees) {
-        return degrees * Math.PI / 180;
-    }
-
-
-    /**
-     * calculate distance between 2 points
-     *
-     */
-    Double dist(double long1, double lat1, double long2, double lat2) {
-
-        Double earthRadiusKm = 6371.0;
-
-        Double dLat = degreesToRadians(lat2 - lat1);
-        Double dLon = degreesToRadians(long2 - long1);
-
-        lat1 = degreesToRadians(lat1);
-        lat2 = degreesToRadians(lat2);
-
-        Double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return earthRadiusKm * c;
-    }
 
     /**
      * Adds a blue marker to the map when the user long clicks on it.
