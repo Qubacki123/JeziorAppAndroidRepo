@@ -30,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
@@ -37,6 +38,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PointOfInterest;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +50,15 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     public static GoogleMap mMap;
     public static GoogleMap map;
     public Marker mPodOmega;
+    public Marker mPortIlawa;
+    public Marker mEkomarina;
+    public Marker mBiskaje;
+    public Marker mPrzystanSkarbek;
+    public Marker mMaribo;
+    public Marker mPomostKrzywyRog;
+    public Marker mZatWyspMil;
+
+    public Marker mMielTor;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -112,8 +124,8 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
         setPoiClick(mMap); // Set a click listener for points of interest.
 
-        //marker podomega
-        ObiektyPOI PodOmega = new ObiektyPOI(true,false,false,true,true,true,true,true,53.600198, 19.547083);
+        //marker Pod Omegą
+        ObiektyPOI PodOmega = new ObiektyPOI(true,false,false,true,true,true,true,false,false,true,true,true,true,53.600198, 19.547083);
         LatLng PodOmegaLatLng = new LatLng(PodOmega.latitude,PodOmega.longitude);
         mPodOmega = mMap.addMarker(new MarkerOptions()
                     .position(PodOmegaLatLng)
@@ -121,13 +133,132 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                     .snippet(getSnippet(PodOmega))
                     .icon(BitmapDescriptorFactory.defaultMarker
                             (BitmapDescriptorFactory.HUE_AZURE)));
-        mPodOmega.setTag(0);
+
+        //marker Port Iława
+        ObiektyPOI PortIlawa = new ObiektyPOI(true,false,false,true,true,true,true,false,false,true,false,true,true,53.599951, 19.553358);
+        LatLng PortIlawaLatLng = new LatLng(PortIlawa.latitude,PortIlawa.longitude);
+        mPortIlawa = mMap.addMarker(new MarkerOptions()
+                .position(PortIlawaLatLng)
+                .title("Port Iława")
+                .snippet(getSnippet(PortIlawa))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+
+        //marker Ekomarina
+        ObiektyPOI Ekomarina = new ObiektyPOI(false,true,false,true,false,true,true,false,false,true,false,true,true,53.604218, 19.558014);
+        LatLng EkomarinaLatLng = new LatLng(Ekomarina.latitude,Ekomarina.longitude);
+        mEkomarina = mMap.addMarker(new MarkerOptions()
+                .position(EkomarinaLatLng)
+                .title("Ekomarina")
+                .snippet(getSnippet(Ekomarina))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+
+        //marker Biskaje
+        ObiektyPOI Biskaje = new ObiektyPOI(true,false,false,true,false,true,true,false,false,true,false,true,false,53.615033, 19.563197);
+        LatLng BiskajeLatLng = new LatLng(Biskaje.latitude,Biskaje.longitude);
+        mBiskaje = mMap.addMarker(new MarkerOptions()
+                .position(BiskajeLatLng)
+                .title("Biskaje")
+                .snippet(getSnippet(Biskaje))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+
+        //marker Przystań Skarbek
+        ObiektyPOI PrzystanSkarbek = new ObiektyPOI(true,false,false,true,true,true,true,false,false,true,false,true,false,53.616857, 19.563474);
+        LatLng PrzystanSkarbekLatLng = new LatLng(PrzystanSkarbek.latitude,PrzystanSkarbek.longitude);
+        mPrzystanSkarbek = mMap.addMarker(new MarkerOptions()
+                .position(PrzystanSkarbekLatLng)
+                .title("Przystań Skarbek")
+                .snippet(getSnippet(PrzystanSkarbek))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+
+        //marker Maribo
+        ObiektyPOI Maribo = new ObiektyPOI(true,false,false,true,false,false,true,false,false,true,false,true,false,53.643445, 19.573208);
+        LatLng MariboLatLng = new LatLng(Maribo.latitude,Maribo.longitude);
+        mMaribo = mMap.addMarker(new MarkerOptions()
+                .position(MariboLatLng)
+                .title("Maribo")
+                .snippet(getSnippet(Maribo))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+
+        //marker Pomost Krzywy Róg
+        ObiektyPOI PomostKrzywyRog = new ObiektyPOI(false,true,false,false,false,false,true,true,false,false,true,true,false,53.632064, 19.556638);
+        LatLng PomostKrzywyRogLatLng = new LatLng(PomostKrzywyRog.latitude,PomostKrzywyRog.longitude);
+        mPomostKrzywyRog = mMap.addMarker(new MarkerOptions()
+                .position(PomostKrzywyRogLatLng)
+                .title("Maribo")
+                .snippet(getSnippet(PomostKrzywyRog))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Zatoka Przy Wyspie Miłości
+        ObiektyPOI ZatWyspMil = new ObiektyPOI(false,false,true,false,false,false,true,false,true,false,true,false,false,53.628367, 19.554406);
+        LatLng ZatWyspMilLatLng = new LatLng(ZatWyspMil.latitude,ZatWyspMil.longitude);
+        mZatWyspMil = mMap.addMarker(new MarkerOptions()
+                .position(ZatWyspMilLatLng)
+                .title("Zatoka Przy Wyspie Miłości")
+                .snippet(getSnippet(ZatWyspMil))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        /**
+         * MIELIZNY
+         *
+         */
+        BitmapDescriptor icon1 = BitmapDescriptorFactory.fromResource(R.mipmap.danger_small);
+
+        //mielizna przy torze
+        LatLng MielTor = new LatLng(53.618983, 19.548221);
+        mMielTor = mMap.addMarker(new MarkerOptions()
+                .position(MielTor)
+                .title("Mielizna")
+                .icon(icon1))  ;
+
+
+        /**
+         * INNE OBIEKTY MAPY
+         *
+         */
+
+
+        // Add polylines to the map.
+        // Polylines are useful to show a route or some other connection between points.
+        Polyline polyline1 = mMap.addPolyline(new PolylineOptions()
+                .clickable(true)
+                .add(
+                        new LatLng(53.604047, 19.539689),
+                        new LatLng(53.61697, 19.54636))
+                .clickable(true));
+        polyline1.setTag("Tor wioślarski");
+
+        mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener()
+        {
+            @Override
+            public void onPolylineClick(Polyline polyline)
+            {
+                double latitude0 = polyline.getPoints().get(0).latitude;
+                double longitude0 = polyline.getPoints().get(0).longitude;
+                double latitude1 = polyline.getPoints().get(1).latitude;
+                double longitude1 = polyline.getPoints().get(1).longitude;
+                LatLng srodek = new LatLng((latitude0+latitude1)/2,(longitude0+longitude1)/2);
+                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(srodek, 14));
+                Context mContext = getContext(); //or getActivity(), YourActivity.this, etc.
+                Toast.makeText(mContext, polyline.getTag().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Context mContext = getContext(); //or getActivity(), YourActivity.this, etc.
-                Toast.makeText(mContext, "Wybrano przystań " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                if (marker.getTitle() == "Mielizna"){
+                    Toast.makeText(mContext, "Wybrano mieliznę", Toast.LENGTH_SHORT).show();}
+                else {
+                Toast.makeText(mContext, "Wybrano przystań " + marker.getTitle(), Toast.LENGTH_SHORT).show();}
                 return false;
             }
         });
@@ -167,15 +298,48 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
     public String getSnippet (ObiektyPOI poi) {
         String snippet = "";
+        int emoji_paliwo_int = 0x26FD;
+        String emoji_paliwo = getEmojiByUnicode(emoji_paliwo_int);
         snippet = snippet + "Cumowanie: ";
-        if (poi.cumowanie_kotwica == true) {
-            snippet = snippet + "kotwica\n";}
-        if (poi.cumowanie_bojka == true) {
+        if (poi.cumowanie_kotwica) {
+            snippet = snippet + "kotwica \n";}
+        if (poi.cumowanie_bojka) {
             snippet = snippet + "bojka\n";}
-        if (poi.cumowanie_ybom == true) {
+        if (poi.cumowanie_ybom) {
             snippet = snippet + "y-bom\n";}
+        if (poi.prysznic) {
+            snippet = snippet + "Prysznic\n";}
+        if (poi.paliwo) {
+            snippet = snippet + "⛽Paliwo " + emoji_paliwo + "\n";}
+        if (poi.sklep) {
+            snippet = snippet + "Sklep ✔\n";}
+        if (poi.toaleta) {
+            snippet = snippet + "Toaleta \uD83D\uDEBD";}
+        if (poi.toitoi) {
+            snippet = snippet + " (ToiToi)";}
+        if (poi.kupa_w_krzaku) {
+            snippet = snippet + " (kupa w lesie ( ͡° ͜ʖ ͡°))";}
+        snippet = snippet + " ✔\n";
+        if (poi.woda_pitna) {
+            snippet = snippet + "Woda pitna ✔\n";}
+        if (poi.ognisko) {
+            snippet = snippet + "Ognisko ✔\n";}
+        if (poi.smietnik) {
+            snippet = snippet + "Śmietnik ✔";}
+        if (poi.nocleg) {
+            snippet = snippet + "\nNocleg ✔";}
 
         return snippet;
+    }
+
+
+    /**
+     * Pozyskanie emoji
+     *
+     * @param unicode emoji podane w int
+     */
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
     }
 
 
@@ -228,10 +392,14 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
     public class ObiektyPOI {
         boolean cumowanie_bojka,cumowanie_ybom,cumowanie_kotwica;
-        boolean prysznic,paliwo,sklep,toaleta,woda_pitna;
+        boolean prysznic,paliwo,sklep,toaleta,toitoi,kupa_w_krzaku,woda_pitna,ognisko,smietnik,nocleg;
         double latitude,longitude;
 
-        public ObiektyPOI(boolean cum_b,boolean cum_y,boolean cum_k,boolean prysz,boolean pal,boolean skl,boolean toa,boolean wod,double lat,double lng) {
+
+        public ObiektyPOI(boolean cum_b,boolean cum_y,boolean cum_k,
+                          boolean prysz,boolean pal,boolean skl,boolean toa,
+                          boolean toi,boolean las,boolean wod,boolean ogn,boolean smiet,
+                          boolean noc,double lat,double lng) {
             cumowanie_bojka = cum_b;
             cumowanie_ybom = cum_y;
             cumowanie_kotwica = cum_k;
@@ -239,7 +407,12 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
             paliwo = pal;
             sklep = skl;
             toaleta = toa;
+            toitoi = toi;
+            kupa_w_krzaku = las;
             woda_pitna = wod;
+            ognisko = ogn;
+            smietnik = smiet;
+            nocleg = noc;
             latitude = lat;
             longitude = lng;
         }
