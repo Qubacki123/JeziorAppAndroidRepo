@@ -185,22 +185,32 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                         (BitmapDescriptorFactory.HUE_AZURE)));
 
         //marker Pomost Krzywy Róg
-        ObiektyPOI PomostKrzywyRog = new ObiektyPOI(false,true,false,false,false,false,true,true,false,false,true,true,false,53.632064, 19.556638);
+        ObiektyPOI PomostKrzywyRog = new ObiektyPOI(false,true,false,false,false,false,false,true,false,false,true,true,false,53.632064, 19.556638);
         LatLng PomostKrzywyRogLatLng = new LatLng(PomostKrzywyRog.latitude,PomostKrzywyRog.longitude);
         mPomostKrzywyRog = mMap.addMarker(new MarkerOptions()
                 .position(PomostKrzywyRogLatLng)
-                .title("Maribo")
+                .title("Pomost Krzywy Róg")
                 .snippet(getSnippet(PomostKrzywyRog))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
 
         //marker Zatoka Przy Wyspie Miłości
-        ObiektyPOI ZatWyspMil = new ObiektyPOI(false,false,true,false,false,false,true,false,true,false,true,false,false,53.628367, 19.554406);
+        ObiektyPOI ZatWyspMil = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.628367, 19.554406);
         LatLng ZatWyspMilLatLng = new LatLng(ZatWyspMil.latitude,ZatWyspMil.longitude);
         mZatWyspMil = mMap.addMarker(new MarkerOptions()
                 .position(ZatWyspMilLatLng)
                 .title("Zatoka Przy Wyspie Miłości")
                 .snippet(getSnippet(ZatWyspMil))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+
+        //marker Przystań Indyjski Półwysep
+        ObiektyPOI PrzystIndPol = new ObiektyPOI(false,true,false,false,false,false,false,true,false,false,true,true,false,53.650759, 19.581258);
+        LatLng PrzystIndPolLatLng = new LatLng(PrzystIndPol.latitude,PrzystIndPol.longitude);
+        mPrzystIndPol = mMap.addMarker(new MarkerOptions()
+                .position(PrzystIndPolLatLng)
+                .title("Przystań Indyjski Półwysep")
+                .snippet(getSnippet(PrzystIndPol))
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
 
@@ -231,7 +241,8 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .add(
                         new LatLng(53.604047, 19.539689),
                         new LatLng(53.61697, 19.54636))
-                .clickable(true));
+                .clickable(true)
+                .width(6));
         polyline1.setTag("Tor wioślarski");
 
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener()
@@ -255,7 +266,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Context mContext = getContext(); //or getActivity(), YourActivity.this, etc.
-                if (marker.getTitle() == "Mielizna"){
+                if (marker.getTitle().equals("Mielizna") ){
                     Toast.makeText(mContext, "Wybrano mieliznę", Toast.LENGTH_SHORT).show();}
                 else {
                 Toast.makeText(mContext, "Wybrano przystań " + marker.getTitle(), Toast.LENGTH_SHORT).show();}
@@ -298,36 +309,46 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
     public String getSnippet (ObiektyPOI poi) {
         String snippet = "";
-        int emoji_paliwo_int = 0x26FD;
-        String emoji_paliwo = getEmojiByUnicode(emoji_paliwo_int);
-        snippet = snippet + "Cumowanie: ";
+        /*
+        int emoji_sklep_int = 0x1F6D2;
+        String emoji_sklep = getEmojiByUnicode(emoji_sklep_int);
+
+        int emoji_shower_int = 0x1F6BF;
+        String emoji_shower = getEmojiByUnicode(emoji_shower_int);
+
+         */
+
+        snippet = snippet + "⚓ Cumowanie: ";
         if (poi.cumowanie_kotwica) {
-            snippet = snippet + "kotwica \n";}
+            snippet = snippet + "kotwica\n";}
         if (poi.cumowanie_bojka) {
             snippet = snippet + "bojka\n";}
         if (poi.cumowanie_ybom) {
             snippet = snippet + "y-bom\n";}
         if (poi.prysznic) {
-            snippet = snippet + "Prysznic\n";}
+            snippet = snippet + "\uD83D\uDEBF Prysznic\n";}
         if (poi.paliwo) {
-            snippet = snippet + "⛽Paliwo " + emoji_paliwo + "\n";}
+            snippet = snippet + "⛽ Paliwo\n";}
         if (poi.sklep) {
-            snippet = snippet + "Sklep ✔\n";}
-        if (poi.toaleta) {
-            snippet = snippet + "Toaleta \uD83D\uDEBD";}
-        if (poi.toitoi) {
-            snippet = snippet + " (ToiToi)";}
+            snippet = snippet + "\uD83D\uDED2 Sklep\n";}
+
         if (poi.kupa_w_krzaku) {
-            snippet = snippet + " (kupa w lesie ( ͡° ͜ʖ ͡°))";}
-        snippet = snippet + " ✔\n";
+            snippet = snippet + "\uD83D\uDEBD Kupa w lesie ( ͡° ͜ʖ ͡°)";}
+        else if(poi.toitoi) {
+            snippet = snippet + "\uD83D\uDEBD ToiToi";}
+        else if (poi.toaleta){
+            snippet = snippet + "\uD83D\uDEBD Toaleta";}
+
+        snippet = snippet + "\n";
+
         if (poi.woda_pitna) {
-            snippet = snippet + "Woda pitna ✔\n";}
+            snippet = snippet + "\uD83D\uDEB0 Woda pitna\n";}
         if (poi.ognisko) {
-            snippet = snippet + "Ognisko ✔\n";}
+            snippet = snippet + "\uD83D\uDD25 Ognisko\n";}
         if (poi.smietnik) {
-            snippet = snippet + "Śmietnik ✔";}
+            snippet = snippet + "\uD83D\uDDD1 Śmietnik";}
         if (poi.nocleg) {
-            snippet = snippet + "\nNocleg ✔";}
+            snippet = snippet + "\n\uD83D\uDECC Nocleg";}
 
         return snippet;
     }
