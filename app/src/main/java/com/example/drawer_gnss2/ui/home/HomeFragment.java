@@ -1,6 +1,7 @@
 package com.example.drawer_gnss2.ui.home;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -45,7 +46,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.drawer_gnss2.MainActivity.fab;
 import static com.example.drawer_gnss2.MainActivity.lokalizacja_uzytkownika;
+import static com.example.drawer_gnss2.MainActivity.showOverflowMenu;
 
 public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     private HomeViewModel homeViewModel;
@@ -71,6 +74,17 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     public Marker mGierczakMaly;
     public Marker mGierczakDuzy;
     public Marker mBindugaGierczak1;
+    public Marker mPrzystanLipowyOstrow;
+    public Marker mZatokaLipowyOstrow1;
+    public Marker mZatokaLipowyOstrow2;
+    public Marker mZatokaLipowyOstrow3;
+    public Marker mZatokaLipowyOstrow4;
+    public Marker mZatokaLipowyOstrow5;
+    public Marker mMarinaSiemiany;
+    public Marker mKurkaWodna;
+    public Marker mPrzystanZeglarskaSiemiany;
+    public Marker mLakowa;
+    public Marker mGierczakMaly2;
 
     public Marker mMielTor;
     public Marker mMielJazdz;
@@ -79,6 +93,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
     static public List<Marker> lista_poi;
 
+    @SuppressLint("RestrictedApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -95,11 +110,15 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
          */
 
+        fab.setVisibility(View.VISIBLE);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         Log.e("HomeFragment", "On Create");
+
+        showOverflowMenu(true);
 
 
         return root;
@@ -121,7 +140,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         mMap = googleMap;
         map = googleMap;
 
-        float zoom = 11;
+        float zoom = 12;
 
         // Add a marker over Jeziorak and move the camera
         LatLng jeziorak = new LatLng(53.7222, 19.6065);
@@ -326,7 +345,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         lista_poi.add(mObelisk);
 
         //marker Gierczak Mały
-        ObiektyPOI GierczakMaly = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.701782, 19.623862);
+        ObiektyPOI GierczakMaly = new ObiektyPOI(false,true,false,false,false,false,false,false,true,false,true,false,false,53.710819, 19.629494);
         LatLng GierczakMalyLatLng = new LatLng(GierczakMaly.latitude,GierczakMaly.longitude);
         mGierczakMaly = mMap.addMarker(new MarkerOptions()
                 .position(GierczakMalyLatLng)
@@ -335,6 +354,17 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .icon(BitmapDescriptorFactory.defaultMarker
                         (BitmapDescriptorFactory.HUE_GREEN)));
         lista_poi.add(mGierczakMaly);
+
+        //marker Gierczak Mały
+        ObiektyPOI GierczakMaly2 = new ObiektyPOI(false,true,false,false,false,false,false,false,true,false,true,false,false,53.711336, 19.631966);
+        LatLng GierczakMaly2LatLng = new LatLng(GierczakMaly2.latitude,GierczakMaly2.longitude);
+        mGierczakMaly2 = mMap.addMarker(new MarkerOptions()
+                .position(GierczakMaly2LatLng)
+                .title("Gierczak Mały #2")
+                .snippet(getSnippet(GierczakMaly2))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mGierczakMaly2);
 
         //marker Gierczak Duży
         ObiektyPOI GierczakDuzy = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.717282, 19.636532);
@@ -358,6 +388,115 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                         (BitmapDescriptorFactory.HUE_GREEN)));
         lista_poi.add(mBindugaGierczak1);
 
+        //marker Przystań Lipowy Ostrów
+        ObiektyPOI PrzystanLipowyOstrow = new ObiektyPOI(false,true,false,false,false,false,false,false,true,false,true,false,false,53.730279, 19.604237);
+        LatLng PrzystanLipowyOstrowLatLng = new LatLng(PrzystanLipowyOstrow.latitude,PrzystanLipowyOstrow.longitude);
+        mPrzystanLipowyOstrow = mMap.addMarker(new MarkerOptions()
+                .position(PrzystanLipowyOstrowLatLng)
+                .title("Przystań Lipowy Ostrów")
+                .snippet(getSnippet(PrzystanLipowyOstrow))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mPrzystanLipowyOstrow);
+
+        //marker Zatoka Lipowy Ostrów #1
+        ObiektyPOI ZatokaLipowyOstrow1 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.734379, 19.599806);
+        LatLng ZatokaLipowyOstrow1LatLng = new LatLng(ZatokaLipowyOstrow1.latitude,ZatokaLipowyOstrow1.longitude);
+        mZatokaLipowyOstrow1 = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaLipowyOstrow1LatLng)
+                .title("Zatoka Lipowy Ostrów #1")
+                .snippet(getSnippet(ZatokaLipowyOstrow1))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaLipowyOstrow1);
+
+        //marker Zatoka Lipowy Ostrów #2
+        ObiektyPOI ZatokaLipowyOstrow2 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.729915, 19.600368);
+        LatLng ZatokaLipowyOstrow2LatLng = new LatLng(ZatokaLipowyOstrow2.latitude,ZatokaLipowyOstrow2.longitude);
+        mZatokaLipowyOstrow2 = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaLipowyOstrow2LatLng)
+                .title("Zatoka Lipowy Ostrów #2")
+                .snippet(getSnippet(ZatokaLipowyOstrow2))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaLipowyOstrow2);
+
+        //marker Zatoka Lipowy Ostrów #3
+        ObiektyPOI ZatokaLipowyOstrow3 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.732145, 19.601242);
+        LatLng ZatokaLipowyOstrow3LatLng = new LatLng(ZatokaLipowyOstrow3.latitude,ZatokaLipowyOstrow3.longitude);
+        mZatokaLipowyOstrow3 = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaLipowyOstrow3LatLng)
+                .title("Zatoka Lipowy Ostrów #3")
+                .snippet(getSnippet(ZatokaLipowyOstrow3))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaLipowyOstrow3);
+
+        //marker Zatoka Lipowy Ostrów #4
+        ObiektyPOI ZatokaLipowyOstrow4 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.730733, 19.602566);
+        LatLng ZatokaLipowyOstrow4LatLng = new LatLng(ZatokaLipowyOstrow4.latitude,ZatokaLipowyOstrow4.longitude);
+        mZatokaLipowyOstrow4 = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaLipowyOstrow4LatLng)
+                .title("Zatoka Lipowy Ostrów #4")
+                .snippet(getSnippet(ZatokaLipowyOstrow4))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaLipowyOstrow4);
+
+        //marker Zatoka Lipowy Ostrów #5
+        ObiektyPOI ZatokaLipowyOstrow5 = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.733113, 19.601898);
+        LatLng ZatokaLipowyOstrow5LatLng = new LatLng(ZatokaLipowyOstrow5.latitude,ZatokaLipowyOstrow5.longitude);
+        mZatokaLipowyOstrow5 = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaLipowyOstrow5LatLng)
+                .title("Zatoka Lipowy Ostrów #5")
+                .snippet(getSnippet(ZatokaLipowyOstrow5))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaLipowyOstrow5);
+
+        //marker Marina Żeglarska Siemiany
+        ObiektyPOI MarinaSiemiany = new ObiektyPOI(false,true,false,true,true,true,true,false,false,true,true,true,true,53.738182, 19.587825);
+        LatLng MarinaSiemianyLatLng = new LatLng(MarinaSiemiany.latitude,MarinaSiemiany.longitude);
+        mMarinaSiemiany = mMap.addMarker(new MarkerOptions()
+                .position(MarinaSiemianyLatLng)
+                .title("Marina Żeglarska Siemiany")
+                .snippet(getSnippet(MarinaSiemiany))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mMarinaSiemiany);
+
+        //marker Kurka Wodna
+        ObiektyPOI KurkaWodna = new ObiektyPOI(false,true,false,true,true,true,true,false,false,true,false,true,true,53.737090, 19.587104);
+        LatLng KurkaWodnaLatLng = new LatLng(KurkaWodna.latitude,KurkaWodna.longitude);
+        mKurkaWodna = mMap.addMarker(new MarkerOptions()
+                .position(KurkaWodnaLatLng)
+                .title("Kurka Wodna")
+                .snippet(getSnippet(KurkaWodna))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mKurkaWodna);
+
+        //marker Przystań Żeglarska Siemiany
+        ObiektyPOI PrzystanZeglarskaSiemiany = new ObiektyPOI(false,false,true,true,true,true,false,true,false,true,false,true,false,53.731746, 19.587028);
+        LatLng PrzystanZeglarskaSiemianyLatLng = new LatLng(PrzystanZeglarskaSiemiany.latitude,PrzystanZeglarskaSiemiany.longitude);
+        mPrzystanZeglarskaSiemiany = mMap.addMarker(new MarkerOptions()
+                .position(PrzystanZeglarskaSiemianyLatLng)
+                .title("Przystań Żeglarska Siemiany")
+                .snippet(getSnippet(PrzystanZeglarskaSiemiany))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mPrzystanZeglarskaSiemiany);
+
+        //marker Łąkowa
+        ObiektyPOI Lakowa = new ObiektyPOI(false,true,false,false,false,false,false,false,true,false,true,false,false,53.729685, 19.628712);
+        LatLng LakowaLatLng = new LatLng(Lakowa.latitude,Lakowa.longitude);
+        mLakowa = mMap.addMarker(new MarkerOptions()
+                .position(LakowaLatLng)
+                .title("Przystań Łąkowa")
+                .snippet(getSnippet(Lakowa))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mLakowa);
 
 
         /**
@@ -417,11 +556,11 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
             @Override
             public void onPolylineClick(Polyline polyline)
             {
-                double latitude0 = polyline.getPoints().get(0).latitude;
-                double longitude0 = polyline.getPoints().get(0).longitude;
-                double latitude1 = polyline.getPoints().get(1).latitude;
-                double longitude1 = polyline.getPoints().get(1).longitude;
-                LatLng srodek = new LatLng((latitude0+latitude1)/2,(longitude0+longitude1)/2);
+                //double latitude0 = polyline.getPoints().get(0).latitude;
+                //double longitude0 = polyline.getPoints().get(0).longitude;
+                //double latitude1 = polyline.getPoints().get(1).latitude;
+                //double longitude1 = polyline.getPoints().get(1).longitude;
+                //LatLng srodek = new LatLng((latitude0+latitude1)/2,(longitude0+longitude1)/2);
                 //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(srodek, 14));
                 Context mContext = getContext(); //or getActivity(), YourActivity.this, etc.
                 Toast.makeText(mContext, polyline.getTag().toString(), Toast.LENGTH_SHORT).show();
@@ -474,6 +613,8 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
             }
         });
     }
+
+
 
     public String getSnippet (ObiektyPOI poi) {
         String snippet = "";

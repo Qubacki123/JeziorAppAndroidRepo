@@ -8,36 +8,18 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.drawer_gnss2.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Mapa"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.drawer_gnss2.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="Jeziorak"
         tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.drawer_gnss2.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.example.drawer_gnss2.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
-
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="com.example.drawer_gnss2.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/nav_send"
         android:name="com.example.drawer_gnss2.ui.send.SendFragment"
-        android:label="@string/menu_send"
+        android:label="Przypisy"
         tools:layout="@layout/fragment_send" />
 </navigation>

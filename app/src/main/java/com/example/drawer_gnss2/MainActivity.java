@@ -1,6 +1,7 @@
 package com.example.drawer_gnss2;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.view.Menu;
+import android.widget.Toast;
 
 import static com.example.drawer_gnss2.ui.home.HomeFragment.lista_poi;
 import static com.example.drawer_gnss2.ui.home.HomeFragment.mMap;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity{
     private LocationListener listener;
 
     public static Location lokalizacja_uzytkownika;
+    public static FloatingActionButton fab;
+    public static Menu menu_mapy;
 
 
 
@@ -68,7 +72,10 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        showOverflowMenu(true);
+
+        fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,12 +88,17 @@ public class MainActivity extends AppCompatActivity{
                             .setAction("Action", null).show();
                     Marker bliskie_poi = findNearestMarker(lokalizacja_uzytkownika);
                     LatLng bliskie_poi_latlng = new LatLng(bliskie_poi.getPosition().latitude,bliskie_poi.getPosition().longitude);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bliskie_poi_latlng, 16));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bliskie_poi_latlng, 16));
+
+                    Context mContext = getApplicationContext(); //or getActivity(), YourActivity.this, etc.
+                    Toast.makeText(mContext,"Znaleziono " + bliskie_poi.getTitle(), Toast.LENGTH_SHORT).show();
+
                     Log.e("Bliskie POI", bliskie_poi.getTitle() + " pos: " + bliskie_poi.getPosition().toString());
                     bliskie_poi.showInfoWindow();
                 }
             }
         });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -159,8 +171,15 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        menu_mapy = menu;
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    public static void showOverflowMenu(boolean showMenu){
+        if(menu_mapy == null)
+            return;
+        menu_mapy.setGroupVisible(R.id.main_menu_group, showMenu);
     }
 
     static Marker findNearestMarker(Location location){
