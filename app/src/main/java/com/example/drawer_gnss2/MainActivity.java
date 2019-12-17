@@ -5,11 +5,13 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,6 +20,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try{
+                    registerListener();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (lokalizacja_uzytkownika == null) {
                     Snackbar.make(view, "Czekam na określenie lokalizacji", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -128,32 +136,109 @@ public class MainActivity extends AppCompatActivity {
         Log.e("MainActivity", "On Create");
 
 
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)   != PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 666);
             }
             return;
         }
 
-
+        registerListener();
+        Log.e("MainActivity", "Registered listener");
 
 
     }
-
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults)
-    {
-       registerListener();
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+
+            case 666: // Allowed was selected so Permission granted
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // do your work here
+                    Context mContext3 = getApplicationContext(); //or getActivity(), YourActivity.this, etc.
+                    Toast.makeText(mContext3, "Przyznano uprawnienia", Toast.LENGTH_SHORT).show();
+
+                    Log.e("MainActivity", "Przyznano uprawnienia");
+
+                    registerListener();
+
+
+                } else if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[0])) {
+                    // User selected the Never Ask Again Option Change settings in app settings manually
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle("Zmień uprawnienia w ustawieniach");
+                    alertDialogBuilder
+                            .setMessage("" +
+                                    "\nWybierz USTAWIENIA aby ręcznie ustawić\n" + "uprawnienia lokalizacji GPS")
+                            .setCancelable(false)
+                            .setPositiveButton("USTAWIENIA", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                    intent.setData(uri);
+                                    startActivityForResult(intent, 1000);     // Comment 3.
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
+                } else {
+                    // User selected Deny Dialog to EXIT App ==> OR <== RETRY to have a second chance to Allow Permissions
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                        alertDialogBuilder.setTitle("Druga szansa");
+                        alertDialogBuilder
+                                .setMessage("Wybierz PONÓW aby przyznać uprawnienia\n\n" + "Wybierz WYJDŹ aby wyjść z aplikacji")
+                                .setCancelable(false)
+                                .setPositiveButton("PONÓW", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Integer.parseInt(WRITE_EXTERNAL_STORAGE));
+                                        Intent i = new Intent(MainActivity.this, MainActivity.class);
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(i);
+                                    }
+                                })
+                                .setNegativeButton("WYJDŹ", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        finish();
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                }
+                break;
+        }
+
+
     }
 
 
-
     void registerListener() {
-              lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    Activity#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                return;
+            }
+        }
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
     }
 
 
@@ -171,8 +256,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras)
         {
+            if (mMap != null){
             mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);}
 
         }
 
@@ -194,8 +280,9 @@ public class MainActivity extends AppCompatActivity {
     {
         lokalizacja_uzytkownika = location;
         prevLocation = location;
+        if (mMap != null){
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);}
 
     }
 
