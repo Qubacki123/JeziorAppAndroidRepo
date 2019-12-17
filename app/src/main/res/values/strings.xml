@@ -23,4 +23,7 @@
     <string name="poi">poi</string>
     <string name="jeziorak">Jeziorak</string>
     <string name="wikiurl">https://pl.wikipedia.org/wiki/Jeziorak</string>
+    <string name="title_location_permission">tytuł</string>
+    <string name="text_location_permission">wiadomość</string>
+    <string name="ok">OK</string>
 </resources>

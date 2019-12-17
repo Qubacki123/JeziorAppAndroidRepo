@@ -2,8 +2,11 @@ package com.example.drawer_gnss2;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
@@ -50,7 +54,7 @@ import static com.example.drawer_gnss2.ui.home.HomeFragment.mMap;
 import static com.example.drawer_gnss2.ui.home.HomeFragment.map;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private LocationManager lm;
@@ -60,7 +64,9 @@ public class MainActivity extends AppCompatActivity{
     public static FloatingActionButton fab;
     public static Menu menu_mapy;
 
-
+    LocationManager locationManager;
+    String provider;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
 
     @Override
@@ -70,6 +76,11 @@ public class MainActivity extends AppCompatActivity{
 
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         listener = new MyListener();
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        provider = locationManager.getBestProvider(new Criteria(), false);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,19 +92,20 @@ public class MainActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (lokalizacja_uzytkownika == null){
-                Snackbar.make(view, "Czekam na określenie lokalizacji", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();}
+                if (lokalizacja_uzytkownika == null) {
+                    Snackbar.make(view, "Czekam na określenie lokalizacji", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
                 //znajdz najblizszy
-                else  {
+                else {
                     Snackbar.make(view, "Szukam najbliższej przystani...", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     Marker bliskie_poi = findNearestMarker(lokalizacja_uzytkownika);
-                    LatLng bliskie_poi_latlng = new LatLng(bliskie_poi.getPosition().latitude,bliskie_poi.getPosition().longitude);
+                    LatLng bliskie_poi_latlng = new LatLng(bliskie_poi.getPosition().latitude, bliskie_poi.getPosition().longitude);
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bliskie_poi_latlng, 16));
 
                     Context mContext = getApplicationContext(); //or getActivity(), YourActivity.this, etc.
-                    Toast.makeText(mContext,"Znaleziono " + bliskie_poi.getTitle(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Znaleziono " + bliskie_poi.getTitle(), Toast.LENGTH_SHORT).show();
 
                     Log.e("Bliskie POI", bliskie_poi.getTitle() + " pos: " + bliskie_poi.getPosition().toString());
                     bliskie_poi.showInfoWindow();
@@ -115,6 +127,7 @@ public class MainActivity extends AppCompatActivity{
 
         Log.e("MainActivity", "On Create");
 
+
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)   != PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -123,21 +136,31 @@ public class MainActivity extends AppCompatActivity{
             }
             return;
         }
+
+
+
         registerListener();
 
 
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults)
     {
         registerListener();
     }
-    @SuppressLint("MissingPermission")
-    void registerListener()
-    {
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
+
+
+
+    void registerListener() {
+              lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
     }
+
+
+
+
     private class MyListener implements LocationListener
     {
         @Override
@@ -150,6 +173,8 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras)
         {
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         }
 
@@ -173,6 +198,7 @@ public class MainActivity extends AppCompatActivity{
         prevLocation = location;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
     }
 
 
