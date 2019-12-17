@@ -1,11 +1,13 @@
 package com.example.drawer_gnss2;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.drawer_gnss2.ui.home.HomeFragment;
@@ -115,7 +117,10 @@ public class MainActivity extends AppCompatActivity{
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)   != PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+            }
             return;
         }
         registerListener();
@@ -128,6 +133,7 @@ public class MainActivity extends AppCompatActivity{
     {
         registerListener();
     }
+    @SuppressLint("MissingPermission")
     void registerListener()
     {
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
@@ -165,6 +171,8 @@ public class MainActivity extends AppCompatActivity{
     {
         lokalizacja_uzytkownika = location;
         prevLocation = location;
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
     }
 
 

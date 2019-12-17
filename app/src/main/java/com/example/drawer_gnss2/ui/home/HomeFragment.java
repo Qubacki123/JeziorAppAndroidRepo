@@ -155,8 +155,7 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
 
         //mMap.addGroundOverlay(homeOverlay);
 
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
 
         setMapLongClick(mMap); // Set a long click listener for the map;
 
@@ -635,27 +634,27 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         if (poi.cumowanie_ybom) {
             snippet = snippet + "y-bom";}
         if (poi.prysznic) {
-            snippet = snippet + "\n\uD83D\uDEBF Prysznic";}
+            snippet = snippet + "\n\n\uD83D\uDEBF Prysznic";}
         if (poi.paliwo) {
-            snippet = snippet + "\n⛽ Paliwo";}
+            snippet = snippet + "\n\n⛽ Paliwo";}
         if (poi.sklep) {
-            snippet = snippet + "\n\uD83D\uDED2 Sklep";}
+            snippet = snippet + "\n\n\uD83D\uDED2 Sklep";}
 
         if (poi.kupa_w_krzaku) {
-            snippet = snippet + "\n\uD83D\uDEBD Kupa w lesie ( ͡° ͜ʖ ͡°)";}
+            snippet = snippet + "\n\n\uD83D\uDEBD Kupa w lesie ( ͡° ͜ʖ ͡°)";}
         else if(poi.toitoi) {
-            snippet = snippet + "\n\uD83D\uDEBD ToiToi";}
+            snippet = snippet + "\n\n\uD83D\uDEBD ToiToi";}
         else if (poi.toaleta){
-            snippet = snippet + "\n\uD83D\uDEBD Toaleta";}
+            snippet = snippet + "\n\n\uD83D\uDEBD Toaleta";}
 
         if (poi.woda_pitna) {
-            snippet = snippet + "\n\uD83D\uDEB0 Woda pitna";}
+            snippet = snippet + "\n\n\uD83D\uDEB0 Woda pitna";}
         if (poi.ognisko) {
-            snippet = snippet + "\n\uD83D\uDD25 Ognisko";}
+            snippet = snippet + "\n\n\uD83D\uDD25 Ognisko";}
         if (poi.smietnik) {
-            snippet = snippet + "\n\uD83D\uDDD1 Śmietnik";}
+            snippet = snippet + "\n\n\uD83D\uDDD1 Śmietnik";}
         if (poi.nocleg) {
-            snippet = snippet + "\n\uD83D\uDECC Nocleg";}
+            snippet = snippet + "\n\n\uD83D\uDECC Nocleg";}
 
         return snippet;
     }
