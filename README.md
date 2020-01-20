@@ -5,4 +5,4 @@ JeziorApp is an Android application designed and built for sailors on the Jezior
 Current version:
 > 1.3 - Fixed GPS request errors and other exceptions. Designed AlertDialog for user's permissions.
 
-![Image of Yaktocat](https://github.com/Qubacki123/JeziorAppAndroidRepo/blob/master/logo/main1.png)
+![Image of app](https://github.com/Qubacki123/JeziorAppAndroidRepo/blob/master/logo/main1.png)
