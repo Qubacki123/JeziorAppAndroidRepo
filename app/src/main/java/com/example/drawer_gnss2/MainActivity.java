@@ -95,15 +95,19 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try{
                     registerListener();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                //czekaj na określenie lokalizacji
                 if (lokalizacja_uzytkownika == null) {
                     Snackbar.make(view, "Czekam na określenie lokalizacji", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
+
                 //znajdz najblizszy
                 else {
                     Snackbar.make(view, "Szukam najbliższej przystani...", Snackbar.LENGTH_LONG)
@@ -136,10 +140,10 @@ public class MainActivity extends AppCompatActivity {
         Log.e("MainActivity", "On Create");
 
 
-            if (ActivityCompat.checkSelfPermission(this,
+        if (ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 666);
             }
@@ -301,6 +305,7 @@ public class MainActivity extends AppCompatActivity {
         menu_mapy.setGroupVisible(R.id.main_menu_group, showMenu);
     }
 
+    //Funkcja znajdująca najbliższy marker względem użytkownika
     static Marker findNearestMarker(Location location){
         Marker najblizszy = null;
         Double odleglosc = 0.0;
@@ -325,7 +330,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * degrees to radians
      *
-     * @param degrees The GoogleMap to attach the listener to.
      */
     static Double degreesToRadians(Double degrees) {
         return degrees * Math.PI / 180;
@@ -355,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+    //Funkcja przełącząjaca tryb wyświetlanej mapy
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Change the map type based on the user's selection.

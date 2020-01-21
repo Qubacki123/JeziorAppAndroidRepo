@@ -52,6 +52,8 @@ public class GalleryFragment extends Fragment {
         CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
         p.setAnchorId(View.NO_ID);
         fab.setLayoutParams(p);
+
+        //Wyłączenie widoczności przycisku lokalizacji
         fab.setVisibility(View.GONE);
 
         showOverflowMenu(false);

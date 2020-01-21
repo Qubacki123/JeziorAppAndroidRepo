@@ -85,11 +85,23 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
     public Marker mPrzystanZeglarskaSiemiany;
     public Marker mLakowa;
     public Marker mGierczakMaly2;
+    public Marker mJerzwald;
+    public Marker mZatokaBukowiec;
+    public Marker mGublawki;
+    public Marker mMatyty;
+    public Marker mWejscieKanal;
 
+    //mielizny
     public Marker mMielTor;
     public Marker mMielJazdz;
     public Marker mMielMalyGierczak;
     public Marker mMielDuzyGierczak;
+    public Marker mLowiskoSiemiany;
+    public Marker mCzaplak1;
+    public Marker mCzaplak2;
+
+
+    public Marker mLiniaWys;
 
     static public List<Marker> lista_poi;
 
@@ -99,17 +111,8 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        /*
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
-         */
-
+        //Przywrócenie widoczności przycisku lokalizacji
         fab.setVisibility(View.VISIBLE);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -497,12 +500,62 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                         (BitmapDescriptorFactory.HUE_GREEN)));
         lista_poi.add(mLakowa);
 
+        //marker Jerzwałd
+        ObiektyPOI Jerzwald = new ObiektyPOI(false,true,false,true,true,true,true,false,false,true,false,true,true,53.777941, 19.530287);
+        LatLng JerzwaldLatLng = new LatLng(Jerzwald.latitude,Jerzwald.longitude);
+        mJerzwald = mMap.addMarker(new MarkerOptions()
+                .position(JerzwaldLatLng)
+                .title("Jerzwałd")
+                .snippet(getSnippet(Jerzwald))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mJerzwald);
+
+        //marker Zatoka Bukowiec
+        ObiektyPOI ZatokaBukowiec = new ObiektyPOI(false,false,true,false,false,false,false,false,true,false,true,false,false,53.756991, 19.581213);
+        LatLng ZatokaBukowiecLatLng = new LatLng(ZatokaBukowiec.latitude,ZatokaBukowiec.longitude);
+        mZatokaBukowiec = mMap.addMarker(new MarkerOptions()
+                .position(ZatokaBukowiecLatLng)
+                .title("Zatoka Bukowiec")
+                .snippet(getSnippet(ZatokaBukowiec))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_GREEN)));
+        lista_poi.add(mZatokaBukowiec);
+
+        //marker Matyty
+        ObiektyPOI Matyty = new ObiektyPOI(false,true,false,true,false,true,true,false,false,true,false,true,true,53.788362, 19.585864);
+        LatLng MatytyLatLng = new LatLng(Matyty.latitude,Matyty.longitude);
+        mMatyty = mMap.addMarker(new MarkerOptions()
+                .position(MatytyLatLng)
+                .title("Matyty")
+                .snippet(getSnippet(Matyty))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mMatyty);
+
+        //marker Gubławki
+        ObiektyPOI Gublawki = new ObiektyPOI(false,false,true,false,false,true,true,false,false,true,false,true,false,53.739782, 19.645910);
+        LatLng GublawkiLatLng = new LatLng(Gublawki.latitude,Gublawki.longitude);
+        mGublawki = mMap.addMarker(new MarkerOptions()
+                .position(GublawkiLatLng)
+                .title("Gubławki")
+                .snippet(getSnippet(Gublawki))
+                .icon(BitmapDescriptorFactory.defaultMarker
+                        (BitmapDescriptorFactory.HUE_AZURE)));
+        lista_poi.add(mGublawki);
+
+
+
 
         /**
          * MIELIZNY
          *
          */
         BitmapDescriptor icon1 = BitmapDescriptorFactory.fromResource(R.mipmap.danger_small);
+
+        BitmapDescriptor icon2 = BitmapDescriptorFactory.fromResource(R.mipmap.electricity_small);
+
+        BitmapDescriptor icon3 = BitmapDescriptorFactory.fromResource(R.mipmap.dam_small);
 
         //mielizna przy torze
         LatLng MielTor = new LatLng(53.618983, 19.548221);
@@ -532,11 +585,46 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .title("Mielizna")
                 .icon(icon1))  ;
 
+        //mielizna przy jeziorze Płaskim
+        LatLng Plaskie = new LatLng(53.763629, 19.567231);
+        mMielDuzyGierczak = mMap.addMarker(new MarkerOptions()
+                .position(Plaskie)
+                .title("Mielizna")
+                .icon(icon1))  ;
+
+        //mielizna przy Czaplaku #1
+        LatLng Czaplak1 = new LatLng(53.772987, 19.604339);
+        mCzaplak1 = mMap.addMarker(new MarkerOptions()
+                .position(Czaplak1)
+                .title("Mielizna")
+                .icon(icon1))  ;
+
+        //mielizna przy Czaplaku #2
+        LatLng Czaplak2 = new LatLng(53.768854, 19.601177);
+        mCzaplak2 = mMap.addMarker(new MarkerOptions()
+                .position(Czaplak2)
+                .title("Mielizna")
+                .icon(icon1))  ;
+
+        //mielizna przy łowisku Siemiany
+        LatLng LowiskoSiemiany = new LatLng(53.743239, 19.597505);
+        mLowiskoSiemiany = mMap.addMarker(new MarkerOptions()
+                .position(LowiskoSiemiany)
+                .title("Mielizna")
+                .icon(icon1))  ;
 
         /**
          * INNE OBIEKTY MAPY
          *
          */
+
+        //wejscie do Kanału Elbląskiego
+        LatLng WejscieKanal = new LatLng(53.752886, 19.691161);
+        mWejscieKanal = mMap.addMarker(new MarkerOptions()
+                .position(WejscieKanal)
+                .title("Wejście Kanału Elbląskiego")
+                .anchor(0.5F,0.5F)
+                .icon(icon3))  ;
 
 
         // Add polylines to the map.
@@ -549,6 +637,36 @@ public class HomeFragment extends Fragment implements  OnMapReadyCallback {
                 .clickable(true)
                 .width(3));
         polyline1.setTag("Tor wioślarski");
+
+       // Polylines are useful to show a route or some other connection between points.
+        Polyline polyline2 = mMap.addPolyline(new PolylineOptions()
+                .clickable(true)
+                .add(
+                        new LatLng(53.753499, 19.574327),
+                        new LatLng(53.754991, 19.575723))
+                .clickable(true)
+                .color(0xffffff00)
+                .width(6));
+        polyline2.setTag("Linia wysokiego napięcia");
+
+        // Polylines are useful to show a route or some other connection between points.
+        Polyline polyline3 = mMap.addPolyline(new PolylineOptions()
+                .clickable(true)
+                .add(
+                        new LatLng(53.597355, 19.554563),
+                        new LatLng(53.597640, 19.556304))
+                .clickable(true)
+                .color(0xffff0000)
+                .width(8));
+        polyline3.setTag("Most drogowy w Iławie");
+
+        //ikona ponad linią napięcia
+        LatLng liniaNapiecia = new LatLng((53.753499+53.754991)/2, (19.574327+19.575723)/2);
+        mLiniaWys = mMap.addMarker(new MarkerOptions()
+                .position(liniaNapiecia)
+                .anchor(0.5F,0.5F)
+                .title("Linia wysokiego napięcia")
+                .icon(icon2))  ;
 
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener()
         {
